@@ -1,0 +1,22 @@
+<launch>
+
+<!-- syncronized time stam -->
+<param name="/use_sim_time" value="false" />
+
+<!-- Velodyne -->
+<include file="$(find velodyne_pointcloud)/launch/VLP16_points.launch" />
+
+<!-- IMU -->
+<!-- if not working port try sudo chmod 666 /dev/ttyACM0-->
+<node pkg="myahrs_driver" type="myahrs_driver" name="myahrs_driver">
+    <param name="port" value="/dev/ttyACM0" />
+    <param name="baud_rate" value="115200" />
+  </node>
+
+<!-- GPS -->
+
+<!-- recording rosbag --> 
+<node name="rosbag" pkg="rosbag" type="record" args="-o  /media/odroid/data/  -a"  output="screen"/> 
+
+
+</launch>
